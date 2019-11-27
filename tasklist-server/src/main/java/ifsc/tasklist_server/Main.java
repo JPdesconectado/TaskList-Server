@@ -25,7 +25,6 @@ import ifsc.tasklist.exceptions.NetDeviceException;
 import ifsc.tasklist.exceptions.PortException;
 
 public class Main {
-// batatinha
 	public static void main(String[] args) {
 
 		ServerSocket server = null;
@@ -33,7 +32,7 @@ public class Main {
 			Conn.getEntityManager().close();
 			printServerInfo();
 			server = openSocket();
-			System.out.println("O servidor estÃ¡ aberto na porta " + server.getLocalPort());
+			System.out.println("O servidor est� aberto na porta " + server.getLocalPort());
 			while (true) {
 				listen(server);
 			}
@@ -207,17 +206,17 @@ public class Main {
 	
 	
 	private static void updateUser(ObjectOutputStream out, String[] recebido) throws IOException {
-		User user = new User(recebido[2], recebido[3]);
+		User user = new User(recebido[2], recebido[3], recebido[4], recebido[5]);
 		new UserDAO().update(user);
 	}
 
 	private static void deleteUser(ObjectOutputStream out, String[] recebido) throws IOException {
-		User user = new User(recebido[2], recebido[3]);
+		User user = new User(recebido[2], recebido[3], recebido[4], recebido[5]);
 		new UserDAO().delete(user);
 	}
 
 	private static void addUser(ObjectOutputStream out, String[] recebido) throws IOException {
-		User user = new User(recebido[2], recebido[3]);
+		User user = new User(recebido[2], recebido[3], recebido[4], recebido[5]);
 		new UserDAO().add(user);
 	}
 
@@ -237,7 +236,7 @@ public class Main {
 		if (user == null) {
 			out.writeUTF("404");
 		} else {
-			out.writeUTF(user.getUsuario() + ";" + user.getSenha() + ";");
+			out.writeUTF(user.getUsuario() + ";" + user.getSenha()+ ";");
 		}
 	}
 	

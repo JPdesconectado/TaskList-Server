@@ -49,6 +49,8 @@ public class UserDAO implements DAO<User>{
 		entityMng.getTransaction().begin();
 		User userDB = entityMng.find(User.class, obj.getUsuario());
 		userDB.setSenha(obj.getSenha());
+		userDB.setEmail(obj.getEmail());
+		userDB.setImage(obj.getImage());
 		entityMng.getTransaction().commit();
 		entityMng.close();
 	}
