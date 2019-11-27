@@ -227,7 +227,7 @@ public class Main {
 			out.writeUTF("404");
 		else
 			for (User user : users)
-				msg = msg.concat(user.getUsuario() + ";" + user.getSenha() + ";");
+				msg = msg.concat(user.getUsuario() + ";" + user.getEmail() + ";" + user.getSenha() + ";" + user.getImage() + ";");
 		out.writeUTF(msg);
 	}
 
@@ -236,7 +236,7 @@ public class Main {
 		if (user == null) {
 			out.writeUTF("404");
 		} else {
-			out.writeUTF(user.getUsuario() + ";" + user.getSenha()+ ";");
+			out.writeUTF(user.getUsuario() + ";" + user.getEmail() + ";" + user.getSenha() + ";" + user.getImage() + ";");
 		}
 	}
 	
