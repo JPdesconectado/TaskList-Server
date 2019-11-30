@@ -325,12 +325,12 @@ public class Main {
 	/* ----------------------------------------------------------------------------------- */
 	
 	private static void updateGoals(ObjectOutputStream out, String[] recebido) throws IOException {
-		Goals goals = new Goals(recebido[2], recebido[3], recebido[4], recebido[5],  Integer.valueOf(recebido[6]));
+		Goals goals = new Goals(recebido[2], recebido[3], recebido[4], recebido[5],   Integer.valueOf(recebido[6]));
 		new GoalsDAO().update(goals);
 	}
 
 	private static void deleteGoals(ObjectOutputStream out, String[] recebido) throws IOException {
-		Goals goals = new Goals(recebido[2], recebido[3], recebido[4], recebido[5],  Integer.valueOf(recebido[6]));
+		Goals goals = new Goals(recebido[2], recebido[3], recebido[4], recebido[5],   Integer.valueOf(recebido[6]));
 		new GoalsDAO().delete(goals);
 	}
 
@@ -346,8 +346,7 @@ public class Main {
 			out.writeUTF("404");
 		else
 			for (Goals goal: goals)
-				msg = msg.concat(goal.getNomeUser()+ ";" + goal.getMetaTarefaCumprida() + ";" + goal.getMetaProjetoCumprida() + ";"+ ";" 
-			+ goal.getMetaTPCumprida() + ";" + goal.getObjDiario() + ";");
+				msg = msg.concat(goal.getNomeUser()+ ";" + goal.getMetaTarefaCumprida() + ";" + goal.getMetaProjetoCumprida() + ";" + goal.getMetaTPCumprida() + ";" + goal.getObjDiario() + ";");
 		out.writeUTF(msg);
 	}
 
@@ -356,8 +355,7 @@ public class Main {
 		if (goal == null) {
 			out.writeUTF("404");
 		} else {
-			out.writeUTF(goal.getNomeUser()+ ";" + goal.getMetaTarefaCumprida() + ";" + goal.getMetaProjetoCumprida() + ";"+ ";" 
-					+ goal.getMetaTPCumprida() + ";" + goal.getObjDiario() + ";");
+			out.writeUTF(goal.getNomeUser()+ ";" + goal.getMetaTarefaCumprida() + ";" + goal.getMetaProjetoCumprida() + ";" + goal.getMetaTPCumprida() + ";" + goal.getObjDiario() + ";");
 		}
 	}	
 	
