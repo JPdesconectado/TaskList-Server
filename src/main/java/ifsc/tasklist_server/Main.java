@@ -39,11 +39,11 @@ public class Main {
 				listen(server);
 			}
 		} catch (PortException ex) {
-			System.err.println("Nenhuma porta disponÃ­vel no servidor.");
+			System.err.println("Nenhuma porta dispon�vel no servidor.");
 		} catch (NetDeviceException ex) {
-			System.err.println("A placa de rede estÃ¡ com algum problema.");
+			System.err.println("A placa de rede est� com algum problema.");
 		} catch (CommException ex) {
-			System.err.println("Ocorreu algum problema em uma comunicaÃ§Ã£o com um cliente.");
+			System.err.println("Ocorreu algum problema em uma comunica��o com um cliente.");
 		} finally {
 			if (server != null) {
 				try {
