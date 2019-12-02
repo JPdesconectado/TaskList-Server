@@ -12,11 +12,13 @@ import java.net.UnknownHostException;
 import java.util.Enumeration;
 import java.util.List;
 import ifsc.tasklist.dbcontrol.Conn;
+import ifsc.tasklist.dbcontrol.FeedbackDAO;
 import ifsc.tasklist.dbcontrol.GoalsDAO;
 import ifsc.tasklist.dbcontrol.ProjectDAO;
 import ifsc.tasklist.dbcontrol.TarefaProjetoDAO;
 import ifsc.tasklist.dbcontrol.TaskDAO;
 import ifsc.tasklist.dbcontrol.UserDAO;
+import ifsc.tasklist.dbentities.Feedback;
 import ifsc.tasklist.dbentities.Goals;
 import ifsc.tasklist.dbentities.Project;
 import ifsc.tasklist.dbentities.TarefaProjeto;
@@ -163,6 +165,22 @@ public class Main {
 		in.close();
 		break;
 			
+		case "feedback":
+			if (recebido[1].contentEquals("get"))
+				getFeedback(out, recebido);
+			else if (recebido[1].contentEquals("getAll"))
+				getAllFeedback(out);
+			else if (recebido[1].contentEquals("add"))
+				addFeedback(out, recebido);
+			else if (recebido[1].contentEquals("delete"))
+				deleteFeedback(out, recebido);
+			else if (recebido[1].contentEquals("update"))
+				updateFeedback(out, recebido);
+		
+		out.flush();
+		out.close();
+		in.close();
+		break;
 		}
 	}
 
@@ -360,6 +378,44 @@ public class Main {
 	}	
 	
 	
+/* ----------------------------------------------------------------------------------- */
+	
+	
+	
+	private static void updateFeedback(ObjectOutputStream out, String[] recebido) throws IOException {
+		Feedback feedback = new Feedback(recebido[2], Integer.valueOf(recebido[3]), Boolean.valueOf(recebido[4]), recebido[5]);
+		new FeedbackDAO().update(feedback);
+	}
+
+	private static void deleteFeedback(ObjectOutputStream out, String[] recebido) throws IOException {
+		Feedback feedback = new Feedback(recebido[2], Integer.valueOf(recebido[3]), Boolean.valueOf(recebido[4]), recebido[5]);
+		new FeedbackDAO().delete(feedback);
+	}
+
+	private static void addFeedback(ObjectOutputStream out, String[] recebido) throws IOException {
+		Feedback feedback = new Feedback(recebido[2], Integer.valueOf(recebido[3]), Boolean.valueOf(recebido[4]), recebido[5]);
+		new FeedbackDAO().add(feedback);
+	}
+
+	private static void getAllFeedback(ObjectOutputStream out) throws IOException {
+		String msg = "";
+		List<Feedback> fbs = new FeedbackDAO().getAll();
+		if (fbs == null)
+			out.writeUTF("404");
+		else
+			for (Feedback fb : fbs)
+				msg = msg.concat(fb.getUser() + ";" + fb.getNota() + ";" + fb.isGostou() + ";" + fb.getComentario() + ";");
+		out.writeUTF(msg);
+	}
+
+	private static void getFeedback(ObjectOutputStream out, String[] recebido) throws IOException {
+		Feedback fb = new FeedbackDAO().get(recebido[2]);
+		if (fb == null) {
+			out.writeUTF("404");
+		} else {
+			out.writeUTF(fb.getUser() + ";" + fb.getNota() + ";" + fb.isGostou() + ";" + fb.getComentario() + ";");
+		}
+	}
 	
 	/* ----------------------------------------------------------------------------------- */
 	
